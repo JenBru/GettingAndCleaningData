@@ -17,6 +17,7 @@ dateDownloaded<-date()
 
 #next, unzip data files
 unzip("sensordata.zip",exdir="project")
+# note that the exdir will be created if necessary; see help for unzip function for details
 
 #rename subfolder to conform better to standard naming conventions
 file.rename("project/UCI HAR Dataset","project/UCIHARDataset")
@@ -263,9 +264,9 @@ HARSummaryStats<-ddply(SmartphoneHARdata,.(Subject,Activity,Axis), summarise,
                        meanfBodyGyroSD=mean(fBodyGyroSD,na.rm=TRUE),
                        meanAngleGravityM=mean(AngleGravityM,na.rm=TRUE))
 
-write.table(HARSummaryStats,"project/HARSummaryStats.txt")
+write.table(HARSummaryStats,"project/HARSummaryStats.txt", row.names=FALSE)
 
-#disk cleanup
+#disk/memory cleanup
 rm(temp, temp1, temp2)
 rm(combined_XYZ,alldata,ActLabels,combinedXYZ,features,featuresInfo,mergeTest, mergeTrain)
 rm(row,subject_test,subject_train,X_test,X_train,Xdata_clean,y_test,y_train,Ydata_clean,Zdata_clean)
